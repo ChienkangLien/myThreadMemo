@@ -27,7 +27,7 @@ sleep()：由當前線程來休眠
 yield()：出讓當前CPU的執行權
 join()：插入到當前線程(main)之前
 
-![image](../images/lifecycle.png)
+![image](images/lifecycle.png)
 
 ---
 安全性
