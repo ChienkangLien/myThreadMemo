@@ -3,3 +3,8 @@ basic/.classpath
 basic/.project
 basic/.settings/org.eclipse.jdt.core.prefs
 basic/bin/
+lab/bin/
+lab/.classpath
+lab/.project
+lab/.settings/
+basic/.settings/org.eclipse.core.resources.prefs
