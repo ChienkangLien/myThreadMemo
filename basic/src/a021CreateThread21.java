@@ -1,5 +1,5 @@
 
-public class a02CreateThread2 {
+public class a021CreateThread21 {
 	/*
 	 * 定義一個類MyRunnable實現Runnable介面
 	 * 在MyRunnable類中重寫run()方法

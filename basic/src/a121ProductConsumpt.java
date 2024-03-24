@@ -1,5 +1,5 @@
 
-public class a12ProductConsumpt {
+public class a121ProductConsumpt {
 	public static void main(String[] args) {
 		Foodie f = new Foodie();
 		Cooker c = new Cooker();

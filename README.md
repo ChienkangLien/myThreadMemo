@@ -23,9 +23,9 @@ Java使用的是搶占式調度模型
 守護線程：當其他非守護線程執行完畢後，守護線程會陸續結束、不會從頭到尾執行；應用場景可能是聊天室，聊天如果結束、傳輸到一半的文件也跟著結束
 
 ---
-sleep()：由當前線程來休眠
-yield()：出讓當前CPU的執行權
-join()：插入到當前線程(main)之前
+* sleep()：由當前線程來休眠
+* yield()：出讓當前CPU的執行權
+* join()：插入到當前線程(main)之前
 
 ![image](images/lifecycle.png)
 
@@ -37,6 +37,10 @@ synchronized(鎖(任意物件)) {
 	操作共享數據的代碼 
 }
 ```
+synchronized (this): 對當前對象實例進行同步。當一個執行緒進入 synchronized 塊時，它會鎖定當前對象實例，其他試圖訪問這個對象實例的執行緒將被阻塞，直到鎖被釋放。這意味著當前對象的其他 synchronized 方法也會被阻塞，因為它們也是針對同一個對象實例進行同步的。
+
+synchronized (Object.class): 對類的 Class 對象進行同步。當一個執行緒進入 synchronized 塊時，它會鎖定這個類的 Class 對象，這意味著其他執行緒無法同時進入這個類的任何 synchronized 塊。不同於 synchronized (this)，這種方式可以跨越不同的對象實例，因為它是針對整個類的。
+
 2. 同步方法：鎖住方法中的代碼，鎖對象不能自己指定；非靜態是this、靜態是當前類的字節碼物件(.class)
 ```java=
 修飾符 static synchronized 返回值類型 方法名(方法參數) { 
@@ -77,3 +81,28 @@ BlockingQueue的核心方法：
 6. TERMINATED：執行結束的線程處於這一狀態
 
 ![image](images/status.png)
+
+
+---
+線程池
+* public static ExecutorService newCachedThreadPool()：沒有上限的線程池
+* public static ExecutorService newFixedThreadPool(int nThreads) / newSingleThreadExecutor() / newScheduledThreadPool(int corePoolSize)：有上限的線程池
+
+以上是透過Executors去創建，不建議使用，對於運行規則不明確，有資源耗盡風險；應透過ThreadPoolExecutor 自定義創建。
+
+自定義線程池，核心元素：
+1. 核心線程數量 (不能小於0)
+2. 線程池最大線程的數量 (最大數量>=核心線程數量)
+3. 空閒時間(值) (不能小於0)
+4. 空閒時間(單位) (用TimeUnit指定)
+5. 阻塞隊列 (不能為null)
+6. 創建線程的方式 (不能為null)
+7. 要執行的任務過多時的解決方案 (不能為null)
+
+創建臨時線程時機，核心線程都在忙、隊列長度也排滿了、還有其他線程要處理時。
+先提交的任務不一定先執行。
+核心線程滿了、隊列長度滿了、臨時線程滿了，觸發任務拒絕策略。
+1. ThreadPoolExecutor.AbortPolicy; 默認，丟棄任務並拋出RejectedExecutionException 異常
+2. ThreadPoolExecutor.DiscardPolicy; 丟棄任務，但不拋異常
+3. ThreadPoolExecutor.DiscardOldestPolicy; 拋棄隊列中等待最久的任務，然後把當前任務加入隊列
+4. ThreadPoolExecutor.CallerRunsPolicy; 調用任務的run()方法繞過線程池直接執行

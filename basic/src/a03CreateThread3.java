@@ -4,13 +4,13 @@ import java.util.concurrent.FutureTask;
 
 public class a03CreateThread3 {
 	/*
-	 * ©w¸q¤@­ÓÃşMyCallable¹ê²{Callable¤¶­±
-	 * ¦bMyCallableÃş¤¤­«¼gcall()¤èªk
-	 * ³Ğ«ØMyCallableÃşªºª«¥ó
-	 * ³Ğ«ØFutureªº¹ê²{ÃşFutureTaskª«¥ó¡A§âMyCallableª«¥ó§@¬°ºc³y¤èªkªº°Ñ¼Æ
-	 * ³Ğ«ØThreadÃşªºª«¥ó¡A§âFutureTaskª«¥ó§@¬°ºc³y¤èªkªº°Ñ¼Æ
-	 * ±Ò°Ê°õ¦æºü
-	 * ¦A½Õ¥Îget¤èªk¡A´N¥i¥HÀò¨ú°õ¦æºüµ²§ô¤§«áªºµ²ªG¡C
+	 * å®šç¾©ä¸€å€‹é¡MyCallableå¯¦ç¾Callableä»‹é¢
+	 * åœ¨MyCallableé¡ä¸­é‡å¯«call()æ–¹æ³•
+	 * å‰µå»ºMyCallableé¡çš„ç‰©ä»¶
+	 * å‰µå»ºFutureçš„å¯¦ç¾é¡FutureTaskç‰©ä»¶ï¼ŒæŠŠMyCallableç‰©ä»¶ä½œç‚ºæ§‹é€ æ–¹æ³•çš„åƒæ•¸
+	 * å‰µå»ºThreadé¡çš„ç‰©ä»¶ï¼ŒæŠŠFutureTaskç‰©ä»¶ä½œç‚ºæ§‹é€ æ–¹æ³•çš„åƒæ•¸
+	 * å•Ÿå‹•åŸ·è¡Œç·’
+	 * å†èª¿ç”¨getæ–¹æ³•ï¼Œå°±å¯ä»¥ç²å–åŸ·è¡Œç·’çµæŸä¹‹å¾Œçš„çµæœã€‚
 	 */
 	public static void main(String[] args) throws InterruptedException, ExecutionException {
 		MyCallable mc = new MyCallable();
@@ -20,6 +20,7 @@ public class a03CreateThread3 {
 		Thread t1 = new Thread(ft);
 		t1.start();
 
+		// å¦‚æœåŸ·è¡Œåˆ°é€™ï¼Œä¸Šé¢çš„ç·šç¨‹é‚„æ²’åŸ·è¡Œå®Œç•¢ï¼Œé€™è£¡çš„ä»£ç¢¼æœƒæš«åœç›´åˆ°ç·šç¨‹åŸ·è¡Œå®Œç•¢æ‰æœƒç²å–çµæœ
 		System.out.println(ft.get());
 	}
 }
@@ -28,7 +29,7 @@ class MyCallable implements Callable<Integer> {
 
 	@Override
 	public Integer call() throws Exception {
-		// ¨D1~100¤§©M
+		// æ±‚1~100ä¹‹å’Œ
 		int sum = 0;
 		for (int i = 1; i <= 100; i++) {
 			sum = sum + i;
