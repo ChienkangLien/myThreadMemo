@@ -106,3 +106,7 @@ BlockingQueue的核心方法：
 2. ThreadPoolExecutor.DiscardPolicy; 丟棄任務，但不拋異常
 3. ThreadPoolExecutor.DiscardOldestPolicy; 拋棄隊列中等待最久的任務，然後把當前任務加入隊列
 4. ThreadPoolExecutor.CallerRunsPolicy; 調用任務的run()方法繞過線程池直接執行
+
+---
+* 悲觀鎖：一上來就加鎖，每次只能一個線程進入，訪問完畢後再解鎖；線程安全、性能較差
+* 樂觀鎖：一開始不上鎖、認為是沒問題的，等要出現線程安全問題時才開始控制；線程安全、性能較好
